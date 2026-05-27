@@ -264,4 +264,50 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
+// Google Translate
+function toggleTransPanel() {
+  var panel = document.querySelector('.wTrans');
+  var overlay = document.querySelector('.fCls');
+  var cb = document.getElementById('forTranslate');
+  if (panel) panel.classList.toggle('open');
+  if (overlay) overlay.classList.toggle('open');
+  if (cb) cb.checked = panel ? panel.classList.contains('open') : false;
+}
+function closeTransPanel() {
+  var panel = document.querySelector('.wTrans');
+  var overlay = document.querySelector('.fCls');
+  var cb = document.getElementById('forTranslate');
+  if (panel) panel.classList.remove('open');
+  if (overlay) overlay.classList.remove('open');
+  if (cb) cb.checked = false;
+}
+function moveTranslateGadget() {
+  var gadget = document.querySelector('.goog-te-gadget');
+  var src = document.getElementById('google_translate_element');
+  if (!gadget && src) gadget = src.querySelector('.goog-te-gadget');
+  var panel = document.querySelector('.transC');
+  if (gadget && panel && !panel.contains(gadget)) {
+    panel.appendChild(gadget);
+  }
+}
+(function waitForGadget(remaining) {
+  if (remaining <= 0) return;
+  var gadget = document.querySelector('.goog-te-gadget');
+  var panel = document.querySelector('.transC');
+  if (gadget && panel) {
+    if (!panel.contains(gadget)) panel.appendChild(gadget);
+    return;
+  }
+  setTimeout(function() { waitForGadget(remaining - 1); }, 1000);
+})(30);
+function cleanupGoogleTranslate() {
+  var banner = document.querySelector('.goog-te-banner-frame');
+  if (banner) banner.style.display = 'none';
+  document.body.style.top = '0px';
+  document.body.style.position = '';
+  document.body.style.minHeight = '';
+  moveTranslateGadget();
+}
+setTimeout(function() { cleanupGoogleTranslate(); }, 2000);
+setTimeout(function() { cleanupGoogleTranslate(); }, 6000);
 
