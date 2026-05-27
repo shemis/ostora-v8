@@ -3,18 +3,13 @@
 "figure,footer,header,hgroup,mark,menu,meter,nav,output,"
 +"progress,section,time,video".split(',');h.forEach(function(t){document.createElement(t)});})();
 // Archive page
-!function(){var ar=document.querySelector('.post-body .ArchivePage');if(!ar)return;fetch('/feeds/posts/summary?alt=json&max-results=0').then(function(r){return r.json()}).then(function(d){var cats=d.feed.category||[];cats.forEach(function(c){var html='<div class="caregory-div"><h2 class="Category-ArchivePage"><a href="/search/label/'+c.term+'">'+c.term+'</a></h2></div><ul class="clear">';fetch('/feeds/posts/default/-/'+c.term+'?alt=json').then(function(r){return r.json()}).then(function(e){(e.feed.entry||[]).forEach(function(entry){var links=entry.link||[],alt='';for(var k=0;k<links.length;k++){if(links[k].rel==='alternate'){alt=links[k].href;break}}if(alt.indexOf('.blogspot.')>-1)alt=alt.replace('http://','https://');html+='<li><a class="ArchivePage-posts" title="'+entry.title.+'" href="'+alt+'">'+entry.title.+'</a></li>'+(k>0?',':'')});ar.insertAdjacentHTML('beforeend',html+'</ul>')})})})}();
-// Dark mode, scroll to top, reading progress bar
-var darkMode=function(){document.body.classList.toggle('dark-mode');document.cookie='darkmode='+(document.body.classList.contains('dark-mode')?'1':'0')+';path=/'};
-var scrolup=function(){window.scrollTo({top:0,behavior:'smooth'})};
+!function(){var ar=document.querySelector('.post-body .ArchivePage');if(!ar)return;fetch('/feeds/posts/summary?alt=json&max-results=0').then(function(r){return r.json()}).then(function(d){var cats=d.feed.category||[];cats.forEach(function(c){var html='<div class="caregory-div"><h2 class="Category-ArchivePage"><a href="/search/label/'+c.term+'">'+c.term+'</a></h2></div><ul class="clear">';fetch('/feeds/posts/default/-/'+c.term+'?alt=json').then(function(r){return r.json()}).then(function(e){(e.feed.entry||[]).forEach(function(entry){var links=entry.link||[],alt='';for(var k=0;k<links.length;k++){if(links[k].rel==='alternate'){alt=links[k].href;break}}if(alt.indexOf('.blogspot.')>-1)alt=alt.replace('http://','https://');html+='<li><a class="ArchivePage-posts" title="'+entry.title.$t+'" href="'+alt+'">'+entry.title.$t+'</a></li>'+(k>0?',':'')});ar.insertAdjacentHTML('beforeend',html+'</ul>')})})})}();
+// Webview detection
 (function(){var ua=navigator.userAgent;if(ua.indexOf('wv')>-1||(ua.indexOf('Android')>-1&&ua.indexOf('Chrome')<0))document.documentElement.classList.add('isWebView')})();
-(function(){var p=document.querySelector('#reading-progress-bar');if(p)document.addEventListener('scroll',function(){var s=document.documentElement.scrollTop||document.body.scrollTop,h=document.documentElement.scrollHeight-document.documentElement.clientHeight;p.style.width=(s/h*100)+'%'},{passive:!0})})();
 // Touch cursor fix
 (function(){if('ontouchstart'in window)document.querySelectorAll('.head-pz,.par-bottm,.par-tp,.stxk,.sidenav,.pos-t-t').forEach(function(e){e.style.cursor='pointer'})})();
-// AdSense
-(adsbygoogle=window.adsbygoogle||[]).push({});
 // Pagination
-(function(){var q=window.location.search.replace('?','').split('&');for(var i=0;i<q.length;i++){var p=q[i].split('=');if('page'===p[0]){document.body.classList.add('page40');break}}var lm=document.getElementsByClassName('loadMore');if(lm.length>0&&!document.body.classList.contains('page40')){var bp=document.getElementsByClassName('blog-pager-container');if(bp.length>0)bp[0].innerHTML='<div class="noMorePosts"><svg class="icon-load" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg><span>'+(document.documentElement.dir==='rtl'?'??? ??????? ????????':'No more posts')+'</span></div>'}var sk=document.querySelector('.siki');if(sk){var pn=sk.getElementsByClassName('pageNum');if(pn.length>0){var pg=document.querySelector('#siki-page-number');if(pg)pg.innerHTML='<span>'+(document.documentElement.dir==='rtl'?'?????':'Page')+'</span> '+pn[0].textContent}var nx=sk.getElementsByClassName('next');if(nx.length>0&&!document.body.classList.contains('page40'))nx[0].style.display='none'}})();
+(function(){var q=window.location.search.replace('?','').split('&');for(var i=0;i<q.length;i++){var p=q[i].split('=');if('page'===p[0]){document.body.classList.add('page40');break}}var lm=document.getElementsByClassName('loadMore');if(lm.length>0&&!document.body.classList.contains('page40')){var bp=document.getElementsByClassName('blog-pager-container');if(bp.length>0)bp[0].innerHTML='<div class="noMorePosts"><svg class="icon-load" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/></svg><span>'+(document.documentElement.dir==='rtl'?'لا توجد تدوينات أخرى':'No more posts')+'</span></div>'}var sk=document.querySelector('.siki');if(sk){var pn=sk.getElementsByClassName('pageNum');if(pn.length>0){var pg=document.querySelector('#siki-page-number');if(pg)pg.innerHTML='<span>'+(document.documentElement.dir==='rtl'?'صفحة':'Page')+'</span> '+pn[0].textContent}var nx=sk.getElementsByClassName('next');if(nx.length>0&&!document.body.classList.contains('page40'))nx[0].style.display='none'}})();
 // Topic navigation
 (function(){function loadTitle(e,l){var h=e.getAttribute('href');if(!h)return;fetch(h).then(function(r){return r.text()}).then(function(html){var d=document.createElement('div');d.innerHTML=html;var t=d.querySelector('.topic-title');e.innerHTML='<span class="texxattt">'+l+'</span> <span class="posttitle">'+(t?t.textContent:'')+'</span>'})}var n=document.querySelector('.topic-nav-cont a.next'),p=document.querySelector('.topic-nav-cont a.prev');if(n)loadTitle(n,NextArticle);if(p)loadTitle(p,PreviousArticle)})();
 // Load More Posts
@@ -24,7 +19,7 @@ document.addEventListener('DOMContentLoaded',function(){var r=document.getElemen
 // Share handlers
 (function(){var wa=document.querySelector('.whatsappThis a');if(wa)wa.addEventListener('click',function(e){if(!/Android|iPhone|iPad|iPod|webOS/i.test(navigator.userAgent)){e.preventDefault();alert('Open WhatsApp on your mobile device')}});var ml=document.querySelector('.mailThis a');if(ml)ml.addEventListener('click',function(){window.location='mailto:?subject='+encodeURIComponent(document.title)+'&body='+encodeURIComponent(window.location.href)})})();
 // Copy link
-function copyFunction(){var e=document.getElementById('getlink');e.select();navigator.clipboard.writeText(e.value).then(function(){document.getElementById('share-notif').innerHTML='<span>'+(document.documentElement.lang==='ar'?'?? ??? ??????!':'Copy the link!')+'</span>'})['catch'](function(){document.execCommand('copy');document.getElementById('share-notif').innerHTML='<span>'+(document.documentElement.lang==='ar'?'?? ??? ??????!':'Copy the link!')+'</span>'})}
+function copyFunction(){var e=document.getElementById('getlink');e.select();navigator.clipboard.writeText(e.value).then(function(){document.getElementById('share-notif').innerHTML='<span>'+(document.documentElement.lang==='ar'?'تم نسخ الرابط!':'Copy the link!')+'</span>'})['catch'](function(){document.execCommand('copy');document.getElementById('share-notif').innerHTML='<span>'+(document.documentElement.lang==='ar'?'تم نسخ الرابط!':'Copy the link!')+'</span>'})}
 // Comment open button
 document.addEventListener('DOMContentLoaded',function(){var b=document.querySelector('.open-comment');if(b)b.addEventListener('click',function(){var c=document.querySelector('#comments');if(c)c.scrollIntoView({behavior:'smooth'})})});
 // Comment editor lazy-load
@@ -179,6 +174,20 @@ document.addEventListener('DOMContentLoaded', function() {
     target.parentNode.insertBefore(div, target.nextSibling);
   });
 })();
+// Initialize AdSense ads inside injected ad units
+function initAds() {
+  if (typeof adsbygoogle === 'undefined' || !adsbygoogle.loaded) return;
+  document.querySelectorAll('.ad-unit:not(.ads-initialized)').forEach(function(ad) {
+    if (ad.querySelector('ins.adsbygoogle')) {
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      ad.classList.add('ads-initialized');
+    }
+  });
+}
+setTimeout(initAds, 300);
+window.addEventListener('scroll', function() { clearTimeout(window._adInit); window._adInit = setTimeout(initAds, 500); }, {passive:true});
+// Retry initAds after DOM
+document.addEventListener('DOMContentLoaded', initAds);
 
 // Search: open/close overlay
 document.addEventListener('DOMContentLoaded', function() {
@@ -210,8 +219,6 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 
-
-
 function replaceSrc(a) {
   var c = document.querySelector('.posts');
   if (c) {
@@ -233,7 +240,7 @@ document.addEventListener('DOMContentLoaded', function() {
       var text = body.textContent || '';
       var words = text.trim().split(/\s+/).length;
       var min = Math.max(1, Math.round(words / 200));
-      var label = min <= 1 ? '????? ?????' : min + ' ????? ?????';
+      var label = min <= 1 ? 'قراءة دقيقة' : min + ' دقائق قراءة';
       rt.textContent = label;
     }
   }
@@ -264,5 +271,3 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   }
 });
-
-
